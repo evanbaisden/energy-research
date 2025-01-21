@@ -1,4 +1,3 @@
-# scripts/data_ingestion.py
 import requests
 import pandas as pd
 import os
@@ -19,3 +18,21 @@ if __name__ == "__main__":
     df = pd.DataFrame(data['response']['data'])
     os.makedirs("data/raw", exist_ok=True)
     df.to_csv("data/raw/eia_data.csv", index=False)
+
+
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+def scrape_oil_prices(url):
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, "html.parser")
+    # Logic to find the relevant table or price data
+    # ...
+    # Create a DataFrame and return it
+    return pd.DataFrame(...)
+
+if __name__ == "__main__":
+    oil_price_url = "https://example.com/oil-prices"
+    df_prices = scrape_oil_prices(oil_price_url)
+    df_prices.to_csv("data/raw/oil_prices.csv", index=False)
